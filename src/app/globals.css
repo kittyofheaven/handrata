@@ -1,26 +1,129 @@
 @import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+@custom-variant dark (&:is(.dark *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-commit-mono);
+  --font-mono: var(--font-commit-mono);
+  --font-heading: var(--font-commit-mono);
+  --font-display: var(--font-major-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+/*
+ * Dark-only by design. The Figma file defines exactly two colours — black
+ * #161616 and white #FCFCFC — and ships no light variant, so :root carries
+ * the dark values directly rather than being overridden by a .dark class.
+ */
+:root {
+  --background: #161616;
+  --foreground: #fcfcfc;
+  --card: #161616;
+  --card-foreground: #fcfcfc;
+  --popover: #1c1c1c;
+  --popover-foreground: #fcfcfc;
+  --primary: #fcfcfc;
+  --primary-foreground: #161616;
+  --secondary: #262626;
+  --secondary-foreground: #fcfcfc;
+  --muted: #262626;
+  --muted-foreground: #8a8a8a;
+  --accent: #262626;
+  --accent-foreground: #fcfcfc;
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: #fcfcfc;
+  --input: #2e2e2e;
+  --ring: #fcfcfc;
+  --chart-1: #fcfcfc;
+  --chart-2: #c4c4c4;
+  --chart-3: #8a8a8a;
+  --chart-4: #5c5c5c;
+  --chart-5: #333333;
+  --radius: 20px;
+  --sidebar: #161616;
+  --sidebar-foreground: #fcfcfc;
+  --sidebar-primary: #fcfcfc;
+  --sidebar-primary-foreground: #161616;
+  --sidebar-accent: #262626;
+  --sidebar-accent-foreground: #fcfcfc;
+  --sidebar-border: #2e2e2e;
+  --sidebar-ring: #fcfcfc;
+}
+
+@layer base {
+  * {
+    @apply outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground font-mono;
+    /* Figma sets every text style to lineHeight 100%. */
+    line-height: normal;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer components {
+  /*
+   * Decorative grids sitting behind the Project Card artwork. The Figma layer
+   * for these came back empty over MCP, so they are rebuilt as CSS background
+   * patterns: dots for the left-aligned variant, plus signs for the mirrored
+   * one. Both are 36px cells, matching the spacing measured in the mockup.
+   */
+  .pattern-dots {
+    background-image: radial-gradient(
+      currentColor 1px,
+      transparent 1.1px
+    );
+    background-size: 36px 36px;
+  }
+
+  /*
+   * A plus needs a mark bounded on both axes, which a single linear-gradient
+   * cannot express — so the shape comes from an SVG mask and the colour still
+   * flows from `currentColor` via background-color.
+   */
+  .pattern-plus {
+    background-color: currentColor;
+    mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='36'%3E%3Cpath d='M13.5 18.5h9M18.5 14v9' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
+    mask-size: 36px 36px;
+    mask-repeat: repeat;
+  }
 }

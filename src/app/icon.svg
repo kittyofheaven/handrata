@@ -1,0 +1,18 @@
+<svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <!--
+    ChimeLab's C, on its own. The path is the wordmark's Vector_4 verbatim —
+    the same vector data exported from Artboard1_5 — with its bounding box
+    (165.799,126.511 to 337.317,394.209) scaled and centred in the 512 box.
+
+    Solid background rather than transparent: a favicon sits on browser chrome
+    that may be light or dark, and a bare white glyph disappears on the light one.
+  -->
+  <rect width="512" height="512" fill="#161616"/>
+  <path
+    transform="translate(134.25 66) scale(1.4195) translate(-165.799 -126.511)"
+    fill-rule="evenodd"
+    clip-rule="evenodd"
+    d="M206.68 159.118V126.511H337.317V166.879H214.441V354.025H337.317V394.209H165.799V159.118H206.68Z"
+    fill="#FCFCFC"
+  />
+</svg>
